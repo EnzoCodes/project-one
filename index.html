@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- linking login Page JS -->
+        <script src="assets/javascript/loginPage.js"></script>
+        <!-- Stylesheet for login Page -->
+        <link rel="stylesheet" type="text/css" href="assets/css/authStyle.css"/>
+        <!-- google fonts for Login Page -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'/>
+        <meta charset="utf-8"/>
+        <title>Login Page</title>
+    </head>
+    <body>
+
+<form method="post" action="index.html">
+<div class="box">
+<h1>Image Game</h1>
+
+<a href="#"><div id="sign-in" class="btn sign-in" onclick="signIn();">Google Sign In</div></a> <!-- End Btn -->
+
+
+</div> <!-- End Box -->
+
+</form>
+
+
+
+
+
+    <!-- Firebase Init -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAKovIgnElTXfZog6-eGf7X3vU1I7go6yI",
+    authDomain: "imagewordmatch.firebaseapp.com",
+    databaseURL: "https://imagewordmatch.firebaseio.com",
+    projectId: "imagewordmatch",
+    storageBucket: "imagewordmatch.appspot.com",
+    messagingSenderId: "621229379920"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <!-- End Firebase Link -->
+
+    <!-- AJAX link -->
+    <!-- ????  -->
+    <!-- JQUERY CDN link -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous">
+    </script>
+    </body>
+</html>
