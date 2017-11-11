@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- linking login Page JS -->
-        <script src="assets/javascript/loginPage.js"></script>
         <!-- Stylesheet for login Page -->
         <link rel="stylesheet" type="text/css" href="assets/css/authStyle.css"/>
         <!-- google fonts for Login Page -->
@@ -11,32 +9,41 @@
     </head>
     <body>
 
-<form method="post" action="index.html">
-<div class="box">
-<h1>Image Game</h1>
+    <div class="container">
+        <div class="box">
+        <h1>Dashboard</h1>
 
-<a href="#"><div id="sign-in" class="btn sign-in" onclick="signIn();">Google Sign In</div></a> <!-- End Btn -->
+        <input id="txtEmail" type="email" class="email" placeholder="Email" />
 
+        <input id="txtPassword" type="password" class="email" placeholder="Password" />
 
-</div> <!-- End Box -->
+        <button id="btnLogin" class="btn sign-in">
+            Log In
+        </button> <!-- End Btn -->
 
-</form>
+        <button id="btnSignUp" class="btn2 sign-up">
+            Sign Up
+        </button> <!-- End Btn2 -->
 
+        <button id="btnLogout" class="btn sing-in hide">
+            Sign Out
+        </button>
 
-
-
+        </div> <!-- End Box -->
+    </div>
 
     <!-- Firebase Init -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
     <!-- End Firebase Link -->
+    <!-- JS link -->
+    <script src="assets/javascript/loginPage.js"></script>
+    <!-- End JS link -->
 
     <!-- AJAX link -->
     <!-- ????  -->
     <!-- JQUERY CDN link -->
     <script src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-            crossorigin="anonymous">
-    </script>
+            crossorigin="anonymous"></script>
     </body>
 </html>
