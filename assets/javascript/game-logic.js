@@ -165,12 +165,10 @@ function showImage () {
 // ============================================================================
 
 var database = firebase.database();
+
+// Google Auth data capture -- NEED TO FIGURE THIS OUT
 var googleAuth = firebase.auth();
-
 var user = googleAuth.currentUser;
-
-var player1Data = null;
-var player2Data = null;
 
 var player1Exists = false;
 var player2Exists = false;
@@ -184,28 +182,54 @@ var playersRef = database.ref('/players');
 // folder in Firebase that will hold Google Auth data
 var returningPlayersRef = database.ref('/returning');
 
-// this code snippet creates new child in the returning folder in Firebase
-// each child name will be users' UID that will hold user name and points
+// testing for access to user data
+/*returningPlayersRef.on('value', function (snapshot) {
+	console.log(snapshot.val());
+	console.log(snapshot.val().diana);
+	console.log(snapshot.val().diana.ID);
+	console.log(snapshot.val().diana.points);
+})*/
 
-/*	returningPlayersRef.child(INSERT UID HERE).set({
-		name: INSERT NAME HERE,
-		points: INSERT POINTS HERE
-	})
 
-	returningPlayersRef.on('child_added', function (snapshot) {
+
+// when the user logs in, check if they've already played before
+function checkReturningUser () {
+	var name;
+	var ID;
+	var points;
+	// if user is a returning user, set data specific to user and add child to playersRef folder
+		// call checkNumPlayers
+	// else, create new child node in the returning folder
+		// call checkNumPlayers
+
+	// this code snippet creates new child in the returning folder in Firebase
+	// each child name will be users' UID that will hold user name and points
+
+	/*	returningPlayersRef.child(INSERT UID HERE).set({
+			name: INSERT NAME HERE,
+			points: INSERT POINTS HERE
+		})*/
+}
+
+	/*returningPlayersRef.on('child_added', function (snapshot) {
 		
 		console.log(snapshot.val());
 	})*/
 
+playersRef.on('value', function (snapshot) {
 
-// once data is pushed into returningPlayers folder, 
+	currentPlayers = snapshot.numChildren();
+	console.log('current players: ' + currentPlayers)
+
+})
 
 // check the number of current players
 // assumes that the user logged in via Google Auth already
-function checkNumPlayers () {
+// takes in their data as arguments
+function checkNumPlayers (name, UID, points) {
 
-	var username; /*insert gmail ID here*/
-	var points = 0;
+	var player1Ref;
+	var player2Ref;
 
 // if less than two players, check if player1 exists
 	// if player is a returning player -- look for their stored UID, displayname, and points
@@ -215,22 +239,35 @@ function checkNumPlayers () {
 
     if (player1Exists) {
       playerNum = 2;
+    // sets second player to player2
+    // player2Ref = playersRef.child('player2');
+    /*  player2Ref.set({
+		name: INSERT NAME HERE,
+		ID: INSERT UID HERE,
+		points: INSERT POINTS HERE
+	})*/
+	player2Exists = true;
+	// call startGame
     }
     else {
       playerNum = 1;
+    // sets first player to player1
+    // player1Ref = playersRef.child('player1');
+      /*player1Ref.set({
+		name: INSERT NAME HERE,
+		ID: INSERT UID HERE,
+		points: INSERT POINTS HERE
+	})*/
+	player1Exists = true;
+
     }
 
 // create a childnode with player number
 // set the name to the UID, and their points
-    playerRef = database.ref("/players/" + playerNum);
-
-    playerRef.set({
-      ID: username,
-      points: points
-    });
 
     // On disconnect remove this user's player object
-    playerRef.onDisconnect().remove();
+    player1Ref.onDisconnect().remove();
+    player2Ref.onDisconnect().remove();
 }
 
 // if more than 2 players, prevent more players from connecting
@@ -239,58 +276,10 @@ function checkNumPlayers () {
   }
 }
 
-
-playersRef.on('value', function (snapshot) {
-
-	currentPlayers = snapshot.numChildren();
-
-	player1Exists = snapshot.child("1").exists();
-	player2Exists = snapshot.child("2").exists();
-
-	// Player data objects
-	playerOneData = snapshot.child("1").val();
-	playerTwoData = snapshot.child("2").val();
-
-	console.log('current players: ' + currentPlayers);
-
-})
-
-	// ---------------- keeping track of connections ----------
-
-	// connectionsRef references a specific location in our database.
-	// All of our connections will be stored in this directory.
-	/*var connectionsRef = database.ref("/connections");
-
-	// '.info/connected' is a special location provided by Firebase that is updated
-	// every time the client's connection state changes.
-	// '.info/connected' is a boolean value, true if the client is connected and false if they are not.
-	var connectedRef = database.ref(".info/connected");
-
-	// When the client's connection state changes...
-	connectedRef.on("value", function(snap) {
-
-	  // If they are connected..
-	  if (snap.val()) {
-	    // Add user to the connections list.
-	    var con = connectionsRef.push(true);
-	    // Remove user from the connection list when they disconnect.
-	    con.onDisconnect().remove();
-	    console.log(con.key);
-	    userCon = con.key;
-
-	    // database.ref("/connections/" + userCon).set(displayName);
-	  } 
-	});
-
-	// When first loaded or when the connections list changes...
-	connectionsRef.on("value", function(snap) {
-	  // The number of online users is the number of children in the connections list.
-
-	  currentUsers = snap.numChildren();
-	  console.log('connected users: ' + currentUsers);
-
-	  checkNumPlayers();
-	});*/
+function startGame () {
+	// start game
+	// set timers
+}
 
 // =============================================================================
 
