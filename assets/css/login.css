@@ -1,29 +1,32 @@
 body{
 
-background-image: url("../images/bird5.jpg");
+background-image: url("../images/clouds.jpg");
 background-size: 100%;
 background-repeat: no-repeat;
 background-position:center-top;
 }
 
-p{
-color:white;
-padding:10px;
-font-size:20px;
+.list{
+color:black;
+
+font-size:14px;
+padding:10px 0px 0px 15px;
 
 
 }
 
 #directions{
 display:block;
-margin:auto;
-margin-top:300px;
-width:30%;
+/*margin-left:150px;
+margin-top:200px;*/
+margin: auto;
+width:50%;
 font-family: 'Passion One', cursive;
 font-family: 'Boogaloo', cursive;
 background-color: #010d21;
-border-radius:25px;
 font-size:20px;
+
+
 
 
 }
@@ -45,17 +48,29 @@ border-radius:25px;
 width:50%;
 font-family: 'Passion One', cursive;
 font-family: 'Boogaloo', cursive;
-color:white;
-padding:10px;
+color:black;
+font-size:18px;
+padding:10px 0px 0px 15px;
+
+
 
 
 }
 
 #hideMe{
-background-color: #010d21;
-width:75%;
+background-color: white;
+width:80%;
 margin:auto;
-border-radius: 25px;
+
+opacity: .8;
+text-align: left;
+
 
 }
 
+#fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+ }
