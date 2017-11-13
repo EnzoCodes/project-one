@@ -23,7 +23,7 @@
 
     <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
@@ -32,18 +32,34 @@
 </head>
 
 <body>
+    <!-- This script goes wherever we direct our user after Login. Is necessary for Event Listeners through firebase! -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAKovIgnElTXfZog6-eGf7X3vU1I7go6yI",
+        authDomain: "imagewordmatch.firebaseapp.com",
+        databaseURL: "https://imagewordmatch.firebaseio.com",
+        projectId: "imagewordmatch",
+        storageBucket: "imagewordmatch.appspot.com",
+        messagingSenderId: "621229379920"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <!-- End script goes wherever we direct our user after Login. Is necessary for Event Listeners through firebase! -->
 
     <div class="container-fluid">
 
     <!-- Player 1 Icon -->
         <div class="row">
+
             <div class="col s3">
-                    <div class="row">
-                <img class = "responsive-img  sun sunpixel" src="assets/images/sun.svg">
-                        </div>
-                        <div class="row">   
-                <p class="totalScore">Player 1</p>
-                <p class="player">TOTAL POINTS: 1,202</p>
+              <div class="row">
+                  <img class = "responsive-img  sun sunpixel" src="assets/images/sun.svg">
+               </div>
+               <div class="row">   
+                   <p class="totalScore">Player 1</p>
+                   <p class="player">TOTAL POINTS: 1,202</p>
                 </div>
             </div>
     <!-- Game Image  -->
@@ -53,16 +69,16 @@
 
     <!-- Players 2 Icon -->
             <div class="col s3">
-                    <div class="row">
-                <img class="responsive-img sun cloud " src="assets/images/sun.svg">
-                        </div>
-                <div class="row">
-                <p class ="totalScore">Player 2</p>
-                <p class ="player">TOTAL POINTS: 308</p>
-                </div>
+              <div class="row">
+                  <img class="responsive-img sun cloud " src="assets/images/sun.svg">
+              </div>
+              <div class="row">
+                  <p class ="totalScore">Player 2</p>
+                  <p class ="player">TOTAL POINTS: 308</p>
+               </div>
             </div>
         </div>
-  
+
 <!-- text for game div goes here -->
     <!-- timer -->
         <div class="row">
@@ -91,7 +107,7 @@
                 </div>
             </div>
         </div>
-
+        
     <!-- logo and logout button -->
         <div class="row">
             <div class="col s1"></div>

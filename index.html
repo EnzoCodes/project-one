@@ -8,39 +8,56 @@
         <title>Login Page</title>
     </head>
     <body>
+        <!-- Begin terrifying google AUTH script! -->
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyAKovIgnElTXfZog6-eGf7X3vU1I7go6yI",
+            authDomain: "imagewordmatch.firebaseapp.com",
+            databaseURL: "https://imagewordmatch.firebaseio.com",
+            projectId: "imagewordmatch",
+            storageBucket: "imagewordmatch.appspot.com",
+            messagingSenderId: "621229379920"
+          };
+          firebase.initializeApp(config);
+        </script>
+        <!-- Code to intialize the sign-in widget from FirebaseUI web -->
+        <script src="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.1/firebaseui.css" />
+        <script type="text/javascript">
+          // FirebaseUI config.
+          var uiConfig = {
+            // THIS IS WHERE YOU GO WHEN YOU SIGN IN!
+            signInSuccessUrl: 'page1.html',
+            // UP HERE ^^ IS WHERE YOU GO WHEN YOU SIGN IN //
 
-    <div class="container">
-        <div class="box">
-        <h1>Dashboard</h1>
+            // IDK WTF THIS IS. DOESNT SEEM TO BE BROKEN THO
+            signInOptions: [
+              // Leave the lines as is for the providers you want to offer your users.
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+              firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            ],
+            // Terms of service url. Also doesnt seem to be needed?
+            tosUrl: '<your-tos-url>'
+          };
+          // Initialize the FirebaseUI Widget using Firebase.
+          var ui = new firebaseui.auth.AuthUI(firebase.auth());
+          // The start method will wait until the DOM is loaded.
+          ui.start('#firebaseui-auth-container', uiConfig);
+        </script>
+        <!-- END terrifying google AUTH script! -->
 
-        <input id="txtEmail" type="email" class="email" placeholder="Email" />
+    <h1>Welcome DEVA's Image Description Game!</h1>
+    <!-- Do Not Change Below DIV or It's ID -->
+    <div id="firebaseui-auth-container"></div>
+    <!-- ^ Do Not Change this DIV or it's ID ^ -->
 
-        <input id="txtPassword" type="password" class="email" placeholder="Password" />
+    <!-- ANYTHING GOES HERE -->
 
-        <button id="btnLogin" class="btn sign-in">
-            Log In
-        </button> <!-- End Btn -->
 
-        <button id="btnSignUp" class="btn2 sign-up">
-            Sign Up
-        </button> <!-- End Btn2 -->
 
-        <button id="btnLogout" class="btn sing-in hide">
-            Sign Out
-        </button>
 
-        </div> <!-- End Box -->
-    </div>
-
-    <!-- Firebase Init -->
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <!-- End Firebase Link -->
-    <!-- JS link -->
-    <script src="assets/javascript/loginPage.js"></script>
-    <!-- End JS link -->
-
-    <!-- AJAX link -->
-    <!-- ????  -->
     <!-- JQUERY CDN link -->
     <script src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
