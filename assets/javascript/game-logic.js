@@ -174,8 +174,7 @@ function updateFirebaseUserData () {
 var database = firebase.database();
 
 // Google Auth data capture -- NEED TO FIGURE THIS OUT
-var googleAuth = firebase.auth();
-var user = googleAuth.currentUser;
+var user = firebase.auth().currentUser;
 
 var player1Exists = false;
 var player2Exists = false;
@@ -197,7 +196,15 @@ var returningPlayersRef = database.ref('/returning');
 	console.log(snapshot.val().diana.points);
 })*/
 
-
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log(user);
+    console.log(user.uid);
+  } else {
+    // No user is signed in.
+    console.log('REEEEE');
+  }
+});
 
 // when the user logs in, check if they've already played before
 function checkReturningUser () {
