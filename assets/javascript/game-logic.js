@@ -204,6 +204,7 @@ function checkReturningUser () {
 	var name;
 	var ID;
 	var points;
+	
 	// if user is a returning user, set data specific to user and add child to playersRef folder
 		// call checkNumPlayers
 	// else, create new child node in the returning folder
