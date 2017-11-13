@@ -21,14 +21,86 @@ $(document).ready(function () {
 
 	var p1p2Matches = [];
 
-// change click event to function on setTimeout -- each round lasts 30 seconds
-$('#generate-photo-info').click(function () {
-	//create random number generator
-		// to select random word from our word bank
-		// to select random hit from our ajax call
-	function generateRandomNum (min, max) {
-		return Math.floor(Math.random() * max) + min;
+//create random number generator
+	// to select random word from our word bank
+	// to select random hit from our ajax call
+function generateRandomNum (min, max) {
+	return Math.floor(Math.random() * max) + min;
+}
+// calculate team points
+function calculateTeamPoints () {
+	// if player 1 and player 2 share a similar word in their guesses, grant one point to each
+		// calculate difference between the array lengths
+		// whichever one has less elements, add placeholders to have same lengths
+		// iterate over one array, check to see if a word exists in another
+			// if there's a match, push to new array
+			// count length of new array and add points to each player
+	if (p1guesses.length > p2guesses.length) {
+		// placeholder is uppercase to dinstinguish between user guesses
+		p2guesses.push('EXTRA');
 	}
+	else if (p1guesses.length < p2guesses.length) {
+		p1guesses.push('EXTRA');
+	}
+
+	for (var i=0; i < p2guesses.length; i++) {
+		if (p1guesses.includes(p2guesses[i])) {
+			p1p2Matches.push(p2guesses[i]);
+		}
+	}
+	teamPoints = p1p2Matches.length;
+
+	p1points += teamPoints;
+	p2points += teamPoints;
+	
+}
+
+// capture user input and store in array
+$('#p1-submit-btn').click(function (event) {
+	// prevent page reload
+	event.preventDefault();
+
+	// capture user input
+	// convert to lowercase
+	var p1guess = $('#p1-guess').val().toLowerCase();
+
+	// adds user guess to guesses array if it doesn't already exist
+	if (!p1guesses.includes(p1guess)) {
+		p1guesses.push(p1guess);
+		$('#p1-alert').text('');
+	}
+	else {
+		// alert user that they guessed that word already
+		$('#p1-alert').text('You already guessed ' + p1guess);
+	}
+
+	// clear input field
+	$('#p1-guess').val('');
+})
+
+$('#p2-submit-btn').click(function (event) {
+	// prevent page reload
+	event.preventDefault();
+
+	// capture user input
+	var p2guess = $('#p2-guess').val().toLowerCase();
+
+	// adds user guess to guesses array if it doesn't already exist
+	if (!p2guesses.includes(p2guess)) {
+		p2guesses.push(p2guess);
+		$('#p2-alert').text('');
+	}
+	else {
+		// alert user that they guessed that word already
+		$('#p2-alert').text('You already guessed ' + p2guess);
+	}
+
+	// clear input field
+	$('#p2-guess').val('');
+})
+
+// change click event to function on setTimeout -- each round lasts 30 seconds
+function showImage () {
 
 	// select random search term from word bank
 	var selectedTerm = searchTerms[generateRandomNum(0, searchTerms.length)];
@@ -63,13 +135,6 @@ $('#generate-photo-info').click(function () {
 		// appending selected image and photographer link to body -- testing
 		$('body').append(image).append(profileLink).append(imageLink);
 
-		console.log(response);
-		console.log(chosen);
-		console.log(tags);
-		console.log(typeof tags);
-		console.log(photographer);
-		console.log(profileLink);
-
 		// if guesses includes one of the actual tags associated with the image (from API), grant 2 points.
 		// iterate through tags and check to see if they exist in the guesses array
 			// refactor this code later for multiplayer feature
@@ -85,119 +150,24 @@ $('#generate-photo-info').click(function () {
 					p2points += 2;
 				}
 			}
-
-			console.log(p1points);
-			console.log(p2points);
 		}
-
-		// calculate team points
-		function calculateTeamPoints () {
-			// if player 1 and player 2 share a similar word in their guesses, grant one point to each
-				// calculate difference between the array lengths
-				// whichever one has less elements, add placeholders to have same lengths
-				// iterate over one array, check to see if a word exists in another
-					// if there's a match, push to new array
-					// count length of new array and add points to each player
-			if (p1guesses.length > p2guesses.length) {
-				// placeholder is uppercase to dinstinguish between user guesses
-				p2guesses.push('EXTRA');
-				console.log(p1guesses);
-				console.log(p2guesses);
-			}
-			else if (p1guesses.length < p2guesses.length) {
-				p1guesses.push('EXTRA');
-				console.log(p1guesses);
-				console.log(p2guesses);
-			}
-
-			for (var i=0; i < p2guesses.length; i++) {
-				if (p1guesses.includes(p2guesses[i])) {
-					p1p2Matches.push(p2guesses[i]);
-					console.log(p1guesses[i]);
-				}
-			}
-			teamPoints = p1p2Matches.length;
-
-			p1points += teamPoints;
-			p2points += teamPoints;
-			console.log(p1p2Matches);
-			
-		}
-
-		// capture user input and store in array
-		$('#p1-submit-btn').click(function (event) {
-			// prevent page reload
-			event.preventDefault();
-
-			// capture user input
-			// convert to lowercase
-			var p1guess = $('#p1-guess').val().toLowerCase();
-			console.log(p1guess);
-
-			// adds user guess to guesses array if it doesn't already exist
-			if (!p1guesses.includes(p1guess)) {
-				p1guesses.push(p1guess);
-				console.log(p1guesses);
-				$('#p1-alert').text('');
-			}
-			else {
-				// alert user that they guessed that word already
-				$('#p1-alert').text('You already guessed ' + p1guess);
-			}
-
-			// clear input field
-			$('#p1-guess').val('');
-		})
-
-		$('#p2-submit-btn').click(function (event) {
-			// prevent page reload
-			event.preventDefault();
-
-			// capture user input
-			var p2guess = $('#p2-guess').val().toLowerCase();
-			console.log(p2guess);
-
-			// adds user guess to guesses array if it doesn't already exist
-			if (!p2guesses.includes(p2guess)) {
-				p2guesses.push(p2guess);
-				console.log(p2guesses);
-				$('#p2-alert').text('');
-			}
-			else {
-				// alert user that they guessed that word already
-				$('#p2-alert').text('You already guessed ' + p2guess);
-			}
-
-			// clear input field
-			$('#p2-guess').val('');
-		})
 
 		// displays total points accumulated by user
-		$('#show-stats').click(function () {
+		function showFinalScore () {
 			calculateTeamPoints();
 			addBonusPoints();
-		})
+		}
 
 	});
 
-	
-})
-
+}
 
 // ============================================================================
 
-var config = {
-    apiKey: "AIzaSyAKovIgnElTXfZog6-eGf7X3vU1I7go6yI",
-    authDomain: "imagewordmatch.firebaseapp.com",
-    databaseURL: "https://imagewordmatch.firebaseio.com",
-    projectId: "imagewordmatch",
-    storageBucket: "imagewordmatch.appspot.com",
-    messagingSenderId: "621229379920"
- };
-
-firebase.initializeApp(config);
-
 var database = firebase.database();
+var googleAuth = firebase.auth();
+
+var user = googleAuth.currentUser;
 
 var player1Data = null;
 var player2Data = null;
@@ -205,44 +175,91 @@ var player2Data = null;
 var player1Exists = false;
 var player2Exists = false;
 
-var player1Ref = database.ref('/player1');
-var player2Ref = database.ref('/player2');
+var currentPlayers = null;
 
+// players in game will be stored here
+var playersRef = database.ref('/players');
 
-	$('#submit-displayName').click(function (event) {
-		event.preventDefault();
+// upon connecting and going through Google Auth, store UID, name, and points to returningPlayersRef
+// folder in Firebase that will hold Google Auth data
+var returningPlayersRef = database.ref('/returning');
 
-		displayName = $('#user-displayName').val();
-		console.log(displayName);
+// this code snippet creates new child in the returning folder in Firebase
+// each child name will be users' UID that will hold user name and points
+
+/*	returningPlayersRef.child(INSERT UID HERE).set({
+		name: INSERT NAME HERE,
+		points: INSERT POINTS HERE
 	})
 
-	database.ref().on('value', function (snapshot) {
+	returningPlayersRef.on('child_added', function (snapshot) {
+		
 		console.log(snapshot.val());
+	})*/
 
-		player1Ref.set({
-			player1Data
-		})
 
-		player2Ref.set({
-			player2Data
-		})
-	})
+// once data is pushed into returningPlayers folder, 
 
-	// creating game-rooms with max occupancy of 2
-	// when player enters page:
-		// create child node in game-rooms folder firebase
-			// games will be stored here
-			// children of this node will have creator, joiner, and status properties
-				// if room is full, start the game
+// check the number of current players
+// assumes that the user logged in via Google Auth already
+function checkNumPlayers () {
 
-	var gameRoomRef = database.ref('/game-rooms');
+	var username; /*insert gmail ID here*/
+	var points = 0;
 
+// if less than two players, check if player1 exists
+	// if player is a returning player -- look for their stored UID, displayname, and points
+	// reassign points to their accumulated points
+	// else, default points to 0
+	if (currentPlayers < 2) {
+
+    if (player1Exists) {
+      playerNum = 2;
+    }
+    else {
+      playerNum = 1;
+    }
+
+// create a childnode with player number
+// set the name to the UID, and their points
+    playerRef = database.ref("/players/" + playerNum);
+
+    playerRef.set({
+      ID: username,
+      points: points
+    });
+
+    // On disconnect remove this user's player object
+    playerRef.onDisconnect().remove();
+}
+
+// if more than 2 players, prevent more players from connecting
+    else {
+    	alert("Sorry, Game Full! Try Again Later!");
+  }
+}
+
+
+playersRef.on('value', function (snapshot) {
+
+	currentPlayers = snapshot.numChildren();
+
+	player1Exists = snapshot.child("1").exists();
+	player2Exists = snapshot.child("2").exists();
+
+	// Player data objects
+	playerOneData = snapshot.child("1").val();
+	playerTwoData = snapshot.child("2").val();
+
+	console.log('current players: ' + currentPlayers);
+
+})
 
 	// ---------------- keeping track of connections ----------
 
 	// connectionsRef references a specific location in our database.
 	// All of our connections will be stored in this directory.
-	var connectionsRef = database.ref("/connections");
+	/*var connectionsRef = database.ref("/connections");
 
 	// '.info/connected' is a special location provided by Firebase that is updated
 	// every time the client's connection state changes.
@@ -261,17 +278,19 @@ var player2Ref = database.ref('/player2');
 	    console.log(con.key);
 	    userCon = con.key;
 
-	    database.ref("/connections/" + userCon).set(displayName);
-	  } // end of "if (snap.val) statement"
-	}); //end of snap
+	    // database.ref("/connections/" + userCon).set(displayName);
+	  } 
+	});
 
 	// When first loaded or when the connections list changes...
 	connectionsRef.on("value", function(snap) {
 	  // The number of online users is the number of children in the connections list.
 
-	  currentPlayers = snap.numChildren();
-	  console.log('current players: ' + currentPlayers);
-	});
+	  currentUsers = snap.numChildren();
+	  console.log('connected users: ' + currentUsers);
+
+	  checkNumPlayers();
+	});*/
 
 // =============================================================================
 
