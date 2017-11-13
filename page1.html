@@ -11,7 +11,7 @@
 
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
 
@@ -50,129 +50,83 @@
 
     <div class="container-fluid">
 
-<!-- Title Div -->
+    <!-- Player 1 Icon -->
         <div class="row">
-            <div class="col l3"></div>
-            <div class="col l6">
-                <h1>Photo Vision</h1>
-            </div>
-            <div class="col l3">
-                    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">X</i></a>
-            </div>
-        </div>
-<!-- Title end her Div -->
 
-
-<!-- Player Profile End Here-->
-
-    <!-- Timer Div -->
-
-<!-- timer div ends -->
-
-
-<!-- Player Profile -->
-
-
-<!-- Player Profile ends here -->
-
-
-
-<!-- Individual points -->
-
-        <div class="row">
-            <div class="col l4">
-                <img class = "sun" class="responsive-img circle sun" src="images/sun.svg">
-                <p class ="totalScore">Player 2</p><p class ="player">TOTAL POINTS: 308</p>
-
-            </div>
-
-
-
-            <div class="col l4">
-
-                        <img  id="picture" class="responsive-img" src="http://cdn3-www.dogtime.com/assets/uploads/gallery/goldador-dog-breed-pictures/puppy-1.jpg">
-                        <p class="totalScore pulse">TIMER</p>
-                        <h4 class="totalScore" id="timer">2:00</h4>
-
-                        <p class="totalScore">TEAM SCORE</p>
-                        <h4 id="teamscore">3</h4>
-            </div>
-
-
-
-            <div class="col l4">
-
-                <img class = "sun" class="responsive-img circle sun" src="images/sun.svg">
-                <p class="totalScore">Player 1</p>
-                <p class="player">TOTAL POINTS: 1,202</p>
-
-            </div>
-        </div>
-
-<!-- Individual points ends here-->
-
-
-
-<!-- image div starts here -->
-
-<!-- image div ends here -->
-
-
-<!-- teamScore Div Begins -->
-        <div class= "row">
-                <div class="col l4">
+            <div class="col s3">
+              <div class="row">
+                  <img class = "responsive-img  sun sunpixel" src="assets/images/sun.svg">
+               </div>
+               <div class="row">   
+                   <p class="totalScore">Player 1</p>
+                   <p class="player">TOTAL POINTS: 1,202</p>
                 </div>
-                    <div id="moveUp" class="col l4">
+            </div>
+    <!-- Game Image  -->
+            <div class="col s6">               
+                <img  id="picture" class="responsive-img z-depth-5" src="http://cdn3-www.dogtime.com/assets/uploads/gallery/goldador-dog-breed-pictures/puppy-1.jpg"> 
+            </div>
 
-                    </div>
-                <div class="col l3">
-                </div>
+    <!-- Players 2 Icon -->
+            <div class="col s3">
+              <div class="row">
+                  <img class="responsive-img sun cloud " src="assets/images/sun.svg">
+              </div>
+              <div class="row">
+                  <p class ="totalScore">Player 2</p>
+                  <p class ="player">TOTAL POINTS: 308</p>
+               </div>
+            </div>
         </div>
-
-<!-- teamScore Div Ends -->
-
 
 <!-- text for game div goes here -->
+    <!-- timer -->
         <div class="row">
-            <div class="col l4"></div>
-                <div class="col l4">
-                    <div class="input-field">
-                        <input placeholder="Text Goes Here" id="userInput" type="text" class="validate">
-                        <label for="user_guess"></label>
-                    </div>
-                <div class="col l4"></div>
+            <div class="col s3">
+                <p id="timer">1:00</p>
+            </div>
+    <!-- user input for game -->
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Text Goes Here" id="userInput" type="text" class="validate">
+                    <label for="user_guess"></label>
+                </div>
+            </div>
+    <!-- team score -->
+            <div class="col s3">
+                <p id="teamscore">3</p>
             </div>
         </div>
 
-<!--text for game div ends here  -->
-
-
-<!-- submit div -->
+    <!-- submit div -->
         <div class="row">
             <div class="col s12">
                 <div class="wrapper">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">
-                        <i class="material-icons right">Submit</i>
-                        </button>
+                    <button class="btn submit pink darken-3 waves-effect waves-light z-depth-5" type="submit" name="action">
+                    <i class="material-icons right" id="submit">Submit</i></button>
                 </div>
             </div>
         </div>
-<!-- submit div ends here -->
-        <footer class="page-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <img class = "sun" class="responsive-img circle sun" src="images/branding2.svg">
-                    </div>
-                </div>
+        
+    <!-- logo and logout button -->
+        <div class="row">
+            <div class="col s1"></div>
+            <div class="col s1">
+                <a class="btn-floating btn-large waves-effect waves-light red z-depth-5"><i class="material-icons">X</i></a>
             </div>
-        </footer>
+            <div class="col s8"></div>
+            <div class="col s1">
+                <img class = "birdlogo" class="responsive-img circle sun z-depth-5" alt="logo" src="assets/images/bird.svg">
+            </div>
+            <div class="col s1"></div>
+        </div>
+
 
 
     </div>
 
-
-
 </body>
 
 </html>
+
+
