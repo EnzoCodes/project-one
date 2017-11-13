@@ -1,0 +1,136 @@
+body {
+    background-color: #28c9cb;
+}
+
+h1 {
+    text-align: center;
+    border-color: #fed361;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 25px;
+    background-color: #1fb0b0;
+    color: white;
+    padding: 10px;
+    font-family: 'Passion One', cursive;
+}
+
+.sun {
+    width: 50%;
+    display:block;
+    margin:auto;
+    clear:both;
+}
+
+.circle {
+    image-orientation: center;
+}
+
+
+.totalScore {
+    text-align: center;
+    font-family: 'Passion One', cursive;
+    font-family: 'Boogaloo', cursive;
+    font-size:20px;
+    color:white;
+
+}
+
+.player{
+
+text-align: center;
+font-family: 'Passion One', cursive;
+font-family: 'Boogaloo', cursive;
+font-size:20px;
+color:white;
+
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.btn {
+    position: absolute;
+    top: 50%;
+
+}
+
+
+#moveUp{
+margin-top:-10px;
+
+
+
+}
+
+#center{
+
+margin:auto;
+padding:10px;
+
+
+}
+
+#middle{
+
+margin:auto;
+width:50%;
+
+
+}
+
+
+
+#timer {
+    text-align: center;
+    background-color: #af2380;
+    color: white;
+    padding: 10px;
+    font-family: bold;
+    border-radius: 25px;
+    margin-top:20px;
+}
+
+
+#teamscore {
+    text-align: center;
+    background-color: #af2380;
+    color: white;
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+#picture {
+    display:block;
+    margin: auto;
+    width: 100%;
+    border-radius: 5px;
+    border-color: #1eb2b1;
+    border-width: 5px;
+    border-style: solid;
+}
+
+#userInput {
+    text-align: center;
+    background-color: #fdfdfd;
+    color: black;
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+/* 980px */
+
+/* 760px */
+
+/* 640px */
+

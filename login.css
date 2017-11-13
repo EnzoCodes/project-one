@@ -1,0 +1,61 @@
+body{
+
+background-image: url("bird4.jpg");
+background-size: 100%;
+background-repeat: no-repeat;
+background-position:center-top;
+}
+
+p{
+color:white;
+padding:10px;
+font-size:20px;
+
+
+}
+
+#directions{
+display:block;
+margin:auto;
+margin-top:300px;
+width:30%;
+font-family: 'Passion One', cursive;
+font-family: 'Boogaloo', cursive;
+background-color: #010d21;
+border-radius:25px;
+font-size:20px;
+
+
+}
+
+
+
+#login{
+display:block;
+margin:auto;
+margin-top:250px;
+width:30%;
+border-radius:25px;
+
+
+}
+
+.info{
+
+width:50%;
+font-family: 'Passion One', cursive;
+font-family: 'Boogaloo', cursive;
+color:white;
+padding:10px;
+
+
+}
+
+#hideMe{
+background-color: #010d21;
+width:75%;
+margin:auto;
+border-radius: 25px;
+
+}
+
