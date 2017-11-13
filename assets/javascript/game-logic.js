@@ -10,9 +10,10 @@ var searchTerms = ['puppy','cats','pink flowers','trees and sun'];
 
 $(document).ready(function () {
 
-	// points accumulated by user
+	// points accumulated by user -- these will be added to the existing value in Firebase
 	var p1points = 0;
 	var p2points = 0;
+
 	var teamPoints = 0;
 
 	// stores user guesses to be referenced to later and compared
@@ -55,7 +56,8 @@ function calculateTeamPoints () {
 	
 }
 
-// capture user input and store in array
+// capture user input and store in respective array
+// base the input field on the currentuser (Google Auth)
 $('#p1-submit-btn').click(function (event) {
 	// prevent page reload
 	event.preventDefault();
@@ -71,14 +73,14 @@ $('#p1-submit-btn').click(function (event) {
 	}
 	else {
 		// alert user that they guessed that word already
-		$('#p1-alert').text('You already guessed ' + p1guess);
+		alert('You already guessed ' + p1guess);
 	}
 
 	// clear input field
 	$('#p1-guess').val('');
 })
 
-$('#p2-submit-btn').click(function (event) {
+/*$('#p2-submit-btn').click(function (event) {
 	// prevent page reload
 	event.preventDefault();
 
@@ -92,14 +94,15 @@ $('#p2-submit-btn').click(function (event) {
 	}
 	else {
 		// alert user that they guessed that word already
-		$('#p2-alert').text('You already guessed ' + p2guess);
+		alert('You already guessed ' + p2guess);
 	}
 
 	// clear input field
 	$('#p2-guess').val('');
-})
+})*/
 
 // change click event to function on setTimeout -- each round lasts 30 seconds
+// run this function, then setTimeout on point calculation for 30 seconds
 function showImage () {
 
 	// select random search term from word bank
@@ -160,6 +163,10 @@ function showImage () {
 
 	});
 
+}
+
+function updateFirebaseUserData () {
+	// update user data by accessing child node's points property
 }
 
 // ============================================================================
@@ -279,6 +286,12 @@ function checkNumPlayers (name, UID, points) {
 function startGame () {
 	// start game
 	// set timers
+}
+
+function endGame () {
+	// show more info about photo
+	// stop timers
+	// ask if players want to play again
 }
 
 // =============================================================================
