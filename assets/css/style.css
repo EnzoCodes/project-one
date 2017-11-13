@@ -139,7 +139,8 @@ width:50%;
 }
 
 .birdlogo {
-    width: 100%;
+   width: 85px !important;
+    border: unset;
 }
 
 p {
@@ -158,7 +159,11 @@ p {
 .sunpixel{
     margin-top: 20px !important;
     border: unset;
-    
+}
+
+.logoutButton{
+    margin: 0 auto;
+}
 /* 980px */
 
 /* 760px */
