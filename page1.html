@@ -17,6 +17,9 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+    <script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
 
     <script type="text/javascript" src="assets/javascript/timer.js"></script>
 
@@ -55,11 +58,11 @@
 
             <div class="col s3">
               <div class="row">
-                  <img class = "responsive-img  sun sunpixel" src="assets/Images/sun.svg">
+                  <img  id = "profileOne" class = "responsive-img  sun sunpixel" src="assets/Images/sun.svg">
                </div>
                <div class="row">   
-                   <p class="totalScore">Player 1</p>
-                   <p class="player">TOTAL POINTS: 1,202</p>
+                   <p  id="playerOne" class="totalScore">Player 1</p>
+                   <p id ="playerOneScore" class="player">TOTAL POINTS: 1,202</p>
                 </div>
             </div>
     <!-- Game Image  -->
@@ -70,11 +73,11 @@
     <!-- Players 2 Icon -->
             <div class="col s3">
               <div class="row">
-                  <img class="responsive-img sun cloud " src="assets/Images/sun.svg">
+                  <img  id = "profileTwo" class="responsive-img sun cloud " src="assets/Images/sun.svg">
               </div>
               <div class="row">
-                  <p class ="totalScore">Player 2</p>
-                  <p class ="player">TOTAL POINTS: 308</p>
+                  <p id = "playerTWo" class ="totalScore">Player 2</p>
+                  <p  id = "playerTwoScore" class ="player">TOTAL POINTS: 308</p>
                </div>
             </div>
         </div>
@@ -95,7 +98,8 @@
             </div>
     <!-- team score -->
             <div class="col s3">
-                <p id="teamscore">Score : 3</p>
+                <p id="teamScore">Score : 3</p>
+                <button id = "check">Score</button>
             </div>
         </div>
 
