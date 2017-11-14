@@ -1,4 +1,5 @@
 body{
+
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -7,10 +8,20 @@ body{
 }
 
 .list{
-color:black;
-font-size:14px;
-padding:10px 0px 0px 15px;
+color:#010d21;
+font-size:18px;
+padding:10px 0px 0px 20px;
 
+
+}
+
+.info{
+font-family: 'Passion One', cursive;
+font-family: 'Boogaloo', cursive;
+font-size:25px;
+padding:10px 0px 0px 15px;
+color:#010d21;
+margin-bottom:-20px;
 
 }
 
@@ -24,8 +35,16 @@ font-family: 'Passion One', cursive;
 font-family: 'Boogaloo', cursive;
 background-color: #010d21;
 font-size:20px;
+
 }
 
+#gameTitle{
+
+font-family: 'Sigmar One', cursive;
+color:#010d21;
+
+
+}
 
 
 #login{
@@ -36,28 +55,18 @@ width:30%;
 border-radius:25px;
 }
 
-.info{
-
-width:50%;
-font-family: 'Passion One', cursive;
-font-family: 'Boogaloo', cursive;
-color:black;
-font-size:18px;
-padding:10px 0px 0px 15px;
-
-
-
-
-}
 
 #hideMe{
 background-color: white;
 width:80%;
 margin:auto;
-
-opacity: .8;
+border-style: solid;
+border-width: 1px;
+padding:10px;
+opacity:.8;
+box-shadow: 10px 10px 5px #888888;
 text-align: left;
-
+border-radius: 15px;
 
 }
 
@@ -67,6 +76,15 @@ text-align: left;
     right: 0;
     width: 300px;
  }
+
+
+#bird{
+
+width:150px;
+margin-top:25px;
+margin-left:-20px;
+
+}
 
  /* 640px media query */
 @media screen and (max-width: 640px) {
@@ -82,3 +100,4 @@ text-align: left;
     }
   }
   
+
