@@ -1,9 +1,9 @@
 body{
-
-background-image: url("../Images/clouds.jpg");
-background-size: 100%;
-background-repeat: no-repeat;
-background-position:center-top;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url(../Images/clouds.png);
+    background-size: cover;
 }
 
 .list{
@@ -24,10 +24,6 @@ font-family: 'Passion One', cursive;
 font-family: 'Boogaloo', cursive;
 background-color: #010d21;
 font-size:20px;
-
-
-
-
 }
 
 
@@ -38,8 +34,6 @@ margin:auto;
 margin-top:250px;
 width:30%;
 border-radius:25px;
-
-
 }
 
 .info{
@@ -73,3 +67,18 @@ text-align: left;
     right: 0;
     width: 300px;
  }
+
+ /* 640px media query */
+@media screen and (max-width: 640px) {
+    #gameTitle {
+        font-size: 50px;
+        margin-top: 10px;
+    }
+    #bird {
+        width: 50px;
+    }
+    #logo {
+        width: 0%;
+    }
+  }
+  
