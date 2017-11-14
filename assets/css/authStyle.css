@@ -5,12 +5,6 @@ body{
   width:100%;
   text-align:center;
   margin: 20px 0px 20px 0px;
-/*check on cover vs 100%*/
-  background-image: url("../Images/clouds.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position:center-top;
-
 }
 
 p{
