@@ -136,6 +136,7 @@ width:50%;
 #submit {
     margin: 0 auto;
     border-radius: 25px;
+    
 }
 
 .birdlogo {
@@ -147,8 +148,9 @@ p {
     text-shadow: 2px 2px black;
 }
 
-.submit{
+.submitbutton{
     border-radius: 5px !important;
+    visibility: hidden;
 }
 
 .cloud{
