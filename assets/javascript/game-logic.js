@@ -35,14 +35,14 @@ $(document).ready(function () {
 		guess = $('#userInput').val().toLowerCase();
 
 		//Pull guesses folder, convert into array, check if that guess is in the array.
-		// if guess is not in array... aka
+		// if guess is not in array... aka return is -1,
 		//         console.log("no match!") -- alert user with something
 		//		   push the word into the firebase folder
 		//		else
 		//          teamPoints++
 		//			console.log("You got a point!") - alert user with something
 		//
-		// when timer == 0. EMPTY guesses folder of guesses. 
+		// when timer == 0. EMPTY guesses folder of guesses.
 
 		//TODO: PUSH GUESS TO FIREBASE
 		guesses.push(guess);
