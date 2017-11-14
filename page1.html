@@ -9,11 +9,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
-
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
 
     <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
 
@@ -21,13 +17,14 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script type="text/javascript" src="assets/javascript/timer.js"></script>
 
     <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> 
 
     <title>Photo Vision</title>
 
@@ -58,7 +55,7 @@
 
             <div class="col s3">
               <div class="row">
-                  <img class = "responsive-img  sun sunpixel" src="assets/images/sun.svg">
+                  <img class = "responsive-img  sun sunpixel" src="assets/Images/sun.svg">
                </div>
                <div class="row">   
                    <p class="totalScore">Player 1</p>
@@ -73,7 +70,7 @@
     <!-- Players 2 Icon -->
             <div class="col s3">
               <div class="row">
-                  <img class="responsive-img sun cloud " src="assets/images/sun.svg">
+                  <img class="responsive-img sun cloud " src="assets/Images/sun.svg">
               </div>
               <div class="row">
                   <p class ="totalScore">Player 2</p>
@@ -82,11 +79,12 @@
             </div>
         </div>
 
-<!-- text for game div goes here -->
     <!-- timer -->
         <div class="row">
             <div class="col s3">
-                <p id="timer">60</p>
+
+                <span><p id="timer">1:00</p></span>
+
             </div>
     <!-- user input for game -->
             <div class="col s6">
@@ -105,7 +103,7 @@
         <div class="row">
             <div class="col s12">
                 <div class="wrapper">
-                    <button class="btn submit pink darken-3 waves-effect waves-light z-depth-5" type="submit" name="action">
+                    <button class="btn submitbutton pink darken-3 waves-effect waves-light z-depth-5" type="submit" name="action">
                     <i class="material-icons right" id="submit">Submit</i></button>
                 </div>
             </div>
@@ -119,7 +117,8 @@
             </div>
             <div class="col s6"></div>
             <div class="col s3">
-                <img class = "birdlogo sun restartButton" alt="logo" src="assets/images/bird.svg">
+
+                <img class = "birdlogo sun restartButton" alt="logo" src="assets/Images/bird.svg">
 
             </div>
         </div>

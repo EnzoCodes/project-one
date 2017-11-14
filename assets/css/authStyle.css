@@ -5,12 +5,6 @@ body{
   width:100%;
   text-align:center;
   margin: 20px 0px 20px 0px;
-/*check on cover vs 100%*/
-  background-image: url("../images/clouds.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position:center-top;
-
 }
 
 p{
@@ -103,17 +97,9 @@ background:#3594D2;
 }
 
 #gameTitle{
-
-
 margin-top:-10px;
 font-size: 100px;
-
-
 }
 
-#bird{
-
-width:25px;
 
 
-}
