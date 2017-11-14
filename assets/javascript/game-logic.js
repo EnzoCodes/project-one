@@ -34,6 +34,15 @@ $(document).ready(function () {
 		// convert to lowercase
 		guess = $('#userInput').val().toLowerCase();
 
+		//Pull guesses folder, convert into array, check if that guess is in the array.
+		// if guess is not in array... aka
+		//         console.log("no match!") -- alert user with something
+		//		   push the word into the firebase folder
+		//		else
+		//          teamPoints++
+		//			console.log("You got a point!") - alert user with something
+		//
+		// when timer == 0. EMPTY guesses folder of guesses. 
 
 		//TODO: PUSH GUESS TO FIREBASE
 		guesses.push(guess);
@@ -43,6 +52,8 @@ $(document).ready(function () {
 			if (guesses[i] == -1) {
 				console.log("No match!");
 				//TODO: ADD SOME UI FEATURE TO INDICATE NO MATCH
+				//TODO: Add that word to the array.
+				//TODO: Update to firebase.
 			}
 			else {
 				teamPoints++
