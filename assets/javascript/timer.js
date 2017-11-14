@@ -35,10 +35,30 @@ $(".startButton").on("click", run);
 // stop button
 // $(".restartButton").on("click", run);
 
-
-
 });
+   
+ 
+// +++++++++++++++++++++++++++++++++
+// pulsate function begins
+function scorePulse(){
 
+    $("#teamScore").effect("pulsate", {times:2}, 1000 );
+
+}   
+ // function for pulsate ends here.
+
+
+var photoURL =  user.providerData[0].photoURL
+// function for populating the sun here
+function profile(){
+
+$("#profileOne").attr("src", photoURL);
+$("#profileTwo").attr("src", photoURL);
+
+}
+// +++++++++++++++++++++++++++++++++
+            
+ 
 
 
 

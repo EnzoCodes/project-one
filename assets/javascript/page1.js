@@ -41,5 +41,3 @@ clearInterval(intervalId);
 
 }
 
-
-
