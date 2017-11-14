@@ -10,17 +10,118 @@ var searchTerms = ['puppy','cats','pink flowers','trees and sun'];
 
 $(document).ready(function () {
 
-	// points accumulated by user -- these will be added to the existing value in Firebase
-	var p1points = 0;
-	var p2points = 0;
+// ============================================================================
 
-	var teamPoints = 0;
+var database = firebase.database();
 
-	// stores user guesses to be referenced to later and compared
-	var p1guesses = [];
-	var p2guesses = [];
+// Google Auth data capture -- NEED TO FIGURE THIS OUT
+var user = firebase.auth().currentUser;
+var UID;
+var displayName;
+var points;
 
-	var p1p2Matches = [];
+var currentPlayers = null;
+
+var returningRef = database.ref('/returningUsers/' + UID);
+var currentPlayersRef = database.ref('/currentPlayers/' + UID);
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  	UID = user.uid;
+	displayName = user.displayName;
+
+    console.log(user);
+    console.log(UID);
+    console.log(displayName);
+    console.log('signed in');
+    console.log('=================================');
+
+    // add to returningUsers object
+
+	returningRef.transaction(function(currentData) {
+	  if (currentData === null) {
+	    return {name: displayName, points: 0};
+	  } else {
+	    console.log('User' + displayName + 'already exists.');
+	    return; // Abort the transaction.
+	  }
+	}, function(error, committed, snapshot) {
+	  if (error) {
+	    console.log('Transaction failed abnormally!', error);
+	  } else if (!committed) {
+	    console.log('We aborted the transaction (because' + UID + 'already exists).');
+	  } else {
+	    console.log('User' + displayName + 'added!');
+	  }
+	  console.log(displayName + '\'s data: ,' + snapshot.val());
+	});
+
+	// add to game-room if there's < 2 players
+	
+	if (currentPlayers < 2) {
+		currentPlayersRef.transaction(function(currentData) {
+		  if (currentData === null) {
+		    return {name: displayName, points: 0};
+		  } else {
+		    console.log('User' + displayName + 'already added to game-room.');
+		    return; // Abort the transaction.
+		  }
+		}, function(error, committed, snapshot) {
+		  if (error) {
+		    console.log('Transaction failed abnormally!', error);
+		  } else if (!committed) {
+		    console.log('We aborted the transaction (because' + UID + 'already added to game-room).');
+		  } else {
+		    console.log('User' + displayName + 'added!');
+		  }
+		  console.log(displayName + '\'s data: ,' + snapshot.val());
+		});
+	}
+	else {
+		alert('sorry, there\'s no more room.')
+	}
+
+
+  } else {
+    // No user is signed in.
+    console.log('REEEEE');
+  }
+
+});
+
+currentPlayersRef.on('value', function (snapshot) {
+
+	currentPlayers = snapshot.numChildren();
+
+	// when player disconnects, remove from folder
+	
+	// when player disconnects, end game -- no points added
+
+	console.log('current players: ' + currentPlayers)
+
+})
+
+
+// =============================================================================
+// create players obj that has player numbers as properties and values as user data objs from returningUsers
+var players = {};
+
+function createPlayerObj () {
+
+}
+
+
+// points accumulated by user -- these will be added to the existing value in Firebase
+var p1points = 0;
+var p2points = 0;
+
+var teamPoints = 0;
+
+// stores user guesses to be referenced to later and compared
+var p1guesses = [];
+var p2guesses = [];
+
+var p1p2Matches = [];
 
 //create random number generator
 	// to select random word from our word bank
@@ -83,10 +184,8 @@ $('#p1-submit-btn').click(function (event) {
 /*$('#p2-submit-btn').click(function (event) {
 	// prevent page reload
 	event.preventDefault();
-
 	// capture user input
 	var p2guess = $('#p2-guess').val().toLowerCase();
-
 	// adds user guess to guesses array if it doesn't already exist
 	if (!p2guesses.includes(p2guess)) {
 		p2guesses.push(p2guess);
@@ -96,7 +195,6 @@ $('#p1-submit-btn').click(function (event) {
 		// alert user that they guessed that word already
 		alert('You already guessed ' + p2guess);
 	}
-
 	// clear input field
 	$('#p2-guess').val('');
 })*/
@@ -121,6 +219,7 @@ function showImage () {
 		// chosen is the randomly selected element for this ajax call
 		var chosen = results[generateRandomNum(0, results.length)];
 		// preview image -- need to enlarge image before displaying to users
+		// look into setting image size
 		var image = $('<img>').attr('src', chosen.previewURL);
 		// string of key words -- if users guess any of these words, score bonus points
 		var tags = chosen.tags.split(', ');
@@ -166,129 +265,9 @@ function showImage () {
 }
 
 function updateFirebaseUserData () {
-	// update user data by accessing child node's points property
-}
-
-// ============================================================================
-
-var database = firebase.database();
-
-// Google Auth data capture -- NEED TO FIGURE THIS OUT
-var user = firebase.auth().currentUser;
-
-var player1Exists = false;
-var player2Exists = false;
-
-var currentPlayers = null;
-
-// players in game will be stored here
-var playersRef = database.ref('/players');
-
-// upon connecting and going through Google Auth, store UID, name, and points to returningPlayersRef
-// folder in Firebase that will hold Google Auth data
-var returningPlayersRef = database.ref('/returning');
-
-// testing for access to user data
-/*returningPlayersRef.on('value', function (snapshot) {
-	console.log(snapshot.val());
-	console.log(snapshot.val().diana);
-	console.log(snapshot.val().diana.ID);
-	console.log(snapshot.val().diana.points);
-})*/
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log(user);
-    console.log(user.uid);
-  } else {
-    // No user is signed in.
-    console.log('REEEEE');
-  }
-});
-
-// when the user logs in, check if they've already played before
-function checkReturningUser () {
-	var name;
-	var ID;
-	var points;
-	
-	// if user is a returning user, set data specific to user and add child to playersRef folder
-		// call checkNumPlayers
-	// else, create new child node in the returning folder
-		// call checkNumPlayers
-
-	// this code snippet creates new child in the returning folder in Firebase
-	// each child name will be users' UID that will hold user name and points
-
-	/*	returningPlayersRef.child(INSERT UID HERE).set({
-			name: INSERT NAME HERE,
-			points: INSERT POINTS HERE
-		})*/
-}
-
-	/*returningPlayersRef.on('child_added', function (snapshot) {
-		
-		console.log(snapshot.val());
-	})*/
-
-playersRef.on('value', function (snapshot) {
-
-	currentPlayers = snapshot.numChildren();
-	console.log('current players: ' + currentPlayers)
-
-})
-
-// check the number of current players
-// assumes that the user logged in via Google Auth already
-// takes in their data as arguments
-function checkNumPlayers (name, UID, points) {
-
-	var player1Ref;
-	var player2Ref;
-
-// if less than two players, check if player1 exists
-	// if player is a returning player -- look for their stored UID, displayname, and points
-	// reassign points to their accumulated points
-	// else, default points to 0
-	if (currentPlayers < 2) {
-
-    if (player1Exists) {
-      playerNum = 2;
-    // sets second player to player2
-    // player2Ref = playersRef.child('player2');
-    /*  player2Ref.set({
-		name: INSERT NAME HERE,
-		ID: INSERT UID HERE,
-		points: INSERT POINTS HERE
-	})*/
-	player2Exists = true;
-	// call startGame
-    }
-    else {
-      playerNum = 1;
-    // sets first player to player1
-    // player1Ref = playersRef.child('player1');
-      /*player1Ref.set({
-		name: INSERT NAME HERE,
-		ID: INSERT UID HERE,
-		points: INSERT POINTS HERE
-	})*/
-	player1Exists = true;
-
-    }
-
-// create a childnode with player number
-// set the name to the UID, and their points
-
-    // On disconnect remove this user's player object
-    player1Ref.onDisconnect().remove();
-    player2Ref.onDisconnect().remove();
-}
-
-// if more than 2 players, prevent more players from connecting
-    else {
-    	alert("Sorry, Game Full! Try Again Later!");
-  }
+	// grab user data from returningUsers folder
+		// get points value
+		// increment points accordingly
 }
 
 function startGame () {
@@ -301,12 +280,6 @@ function endGame () {
 	// stop timers
 	// ask if players want to play again
 }
-
-// =============================================================================
-
-
-
-
 
 
 
