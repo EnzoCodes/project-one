@@ -193,16 +193,25 @@ function calculateTeamPoints () {
     $('#teampoints').text(teamPoints);
 }
 
+// historical points for current user
+var userHistPoints;
+// add new points to their existing points in firebase
+var updatedPoints = userHistPoints + teamPoints;
+
 // update the user points in firebase with the teamPoints -- run this last
 function updatePoints () {
 
-	var userHistPoints;
-
 	database.ref('/users/' + UID + '/points').on('value', function (snapshot) {
 		userHistPoints = snapshot.val();
+		console.log(snapshot.val());
 	})
 
-	var updatedPoints = userHistPoints + teamPoints;
+	console.log('prev user points: ' + userHistPoints);
+	console.log('teampoints: ' + teamPoints);
+
+	updatedPoints = userHistPoints + teamPoints;
+
+	console.log('updated points: ' + updatedPoints);
 
 	database.ref('/users/' + UID + '/points').set(updatedPoints);
 }
@@ -285,6 +294,9 @@ function stop() {
 // start button
 $(".startButton").on("click", run);
 $(".startButton").on("click", showImage);
+$(".startButton").on("click", function () {
+	$('#timer').show();
+});
 
 // stop button
 $(".restartButton").on("click", run);
