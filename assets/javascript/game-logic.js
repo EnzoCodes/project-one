@@ -239,10 +239,9 @@ function showImage () {
 		// appending selected image and photographer link to body -- testing
 		$('#picture').attr('src', chosen.previewURL);
 
-		// run this at the end of the game round
-		function showImageInfo () {
-			$('#game-image-section').append(profileLink).append(imageLink);
-		}
+		// hidden at first than will show at end of game
+		$('#game-image-section').append(profileLink).append(imageLink);
+		$('#game-image-section').hide();
 
 	});
 
@@ -297,7 +296,7 @@ $(".restartButton").on("click", showImage);
 function endGame() {
 	guesses = [];
 	teamPoints = 0;
-	showImageInfo();
+	$('#game-image-section').show();
 	updatePoints();
 }
 
