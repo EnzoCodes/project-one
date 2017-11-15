@@ -1,6 +1,6 @@
 var number = 60;
 var intervalId;
-var clicked = false;
+var clicked = true;
 
 $("#picture").on("click", function(){
 

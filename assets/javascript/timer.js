@@ -31,32 +31,49 @@ function stop() {
 // start button
 $(".startButton").on("click", run);
 
-
 // stop button
-// $(".restartButton").on("click", run);
+$(".restartButton").on("click", run);
 
 });
-   
- 
+
+// POSSIBLE CODE TO CORRECT TIMER///////////
+   // $(".startButton").on("click", function(){
+
+// if(started === false){
+
+//     run();
+
+//     started = true;
+// }
+// // stop button
+// // $(".restartButton").on("click", run);
+
+// });
+
+
+
+
+
+ // THIS CODE MUST BE MOVED TO THE GAME LOGIC JS FILE
 // +++++++++++++++++++++++++++++++++
 // pulsate function begins
-function scorePulse(){
+// function scorePulse(){
 
-    $("#teamScore").effect("pulsate", {times:2}, 1000 );
+//     $("#teamScore").effect("pulsate", {times:2}, 1000 );
 
-}   
- // function for pulsate ends here.
+// }   
+//  // function for pulsate ends here.
 
 
-var photoURL =  user.providerData[0].photoURL
-// function for populating the sun here
-function profile(){
+// var photoURL =  user.providerData[0].photoURL
+// // function for populating the sun here
+// function profile(){
 
-$("#profileOne").attr("src", photoURL);
-$("#profileTwo").attr("src", photoURL);
+// $("#profileOne").attr("src", photoURL);
+// $("#profileTwo").attr("src", photoURL);
 
-}
-// +++++++++++++++++++++++++++++++++
+// }
+// // +++++++++++++++++++++++++++++++++
             
  
 
