@@ -44,6 +44,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 	    return {name: displayName, points: 0};
 	  } else {
 	    console.log('User ' + displayName + ' already exists.');
+        $('#profileOne').attr('src', user.providerData[0].photoURL)
+
 	    return; // Abort the transaction.
 	  }
 	}, function(error, committed, snapshot) {
@@ -97,7 +99,7 @@ $('#submit-btn').click(function (event) {
 	// clear input field
 	$('#userInput').val('');
 
-	
+
 	updateGuesses();
 	evalGuesses();
 	calculateTeamPoints();
@@ -141,7 +143,7 @@ function evalGuesses () {
         console.log(currentGuesses);
 
         for (var i=0; i < currentGuesses.length; i++) {
-        	
+
         	var word = currentGuesses[i];
 
 			// if the word does not exist in the wordCount obj, add the key-val pair to it
@@ -251,7 +253,7 @@ function showImage () {
 
 }
 
-var number = 60; 
+var number = 60;
 var intervalId;
 
 function run() {
@@ -262,13 +264,13 @@ function run() {
 // set the countdown
 function decrement() {
     number--;
-    
+
     $("#timer").text(number);
 
     if (number === 0) {
         stop();
         endGame();
-        
+
     }
 };
 
