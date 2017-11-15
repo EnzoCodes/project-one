@@ -44,7 +44,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 	    return {name: displayName, points: 0};
 	  } else {
 	    console.log('User ' + displayName + ' already exists.');
-        $('#profileOne').attr('src', user.providerData[0].photoURL)
+        $('#profileOne').attr('src', user.providerData[0].photoURL);
+        $('#playerOne').text(user.displayName);
 
 	    return; // Abort the transaction.
 	  }
