@@ -196,23 +196,9 @@ function calculateTeamPoints () {
 
 // update the user points in firebase with the teamPoints -- run this last
 function updatePoints () {
-	// historical points for current user
-	var userHistPoints;
-
-	database.ref('/users/' + UID + '/points').on('value', function (snapshot) {
-		userHistPoints = snapshot.val();
-		console.log(snapshot.val());
-	})
-
-	console.log('prev user points: ' + userHistPoints);
-	console.log('teampoints: ' + teamPoints);
-
-	// add new points to their existing points in firebase
-	var updatedPoints = userHistPoints + teamPoints;
-
-	console.log('updated points: ' + updatedPoints);
-
-	database.ref('/users/' + UID + '/points').set(updatedPoints);
+	database.ref('/users/' + UID + '/points').transaction(function (current_value) {
+	  return (current_value || 0) + teamPoints;
+	});
 }
 
 // change click event to function on setTimeout -- each round lasts 60 seconds
@@ -264,10 +250,14 @@ function showImage () {
 
 var number = 60;
 var intervalId;
+var running = false;
 
 function run() {
-    intervalId = setInterval(decrement, 1000);
-    $(".submitbutton").css("visibility", "visible");
+	if (!running) {
+		running = true;
+	    intervalId = setInterval(decrement, 1000);
+	    $(".submitbutton").css("visibility", "visible");
+	}
 };
 
 // set the countdown
@@ -286,9 +276,11 @@ function decrement() {
 
 // when the countdown timer hits 0, it will stop
 function stop() {
+	running = false;
     clearInterval(intervalId);
     number = 60;
     $(".submitbutton").css("visibility", "hidden");
+    endGame();
 }
 
 // start button
@@ -305,8 +297,8 @@ $(".restartButton").on("click", showImage);
 function endGame() {
 	guesses = [];
 	teamPoints = 0;
-	$('#timer').hide();
 	showImageInfo();
+	updatePoints();
 }
 
 
