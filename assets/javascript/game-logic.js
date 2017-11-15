@@ -8,7 +8,7 @@ var searchTerms = ['puppy','cats','pink flowers','trees and sun'];
 	// create a counter -- if it matches the amount of images we want to show, stop the game
 
 
-$(document).ready(function () {
+$(document).ready(function() {
 
 // ============================================================================
 
@@ -22,7 +22,7 @@ var points;
 
 var currentPlayers = null;
 
-var returningRef = database.ref('/returningUsers/' + UID);
+var usersRef = database.ref('/users/' + UID);
 var currentPlayersRef = database.ref('/currentPlayers/' + UID);
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -36,11 +36,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log('signed in');
     console.log('=================================');
 
-    // add to returningUsers object
+    // add to users object
+    usersRef = database.ref('/users/' + UID);
 
-	returningRef.transaction(function(currentData) {
+	usersRef.transaction(function(currentData) {
 	  if (currentData === null) {
-	    return {name: displayName, points: 0};
+	    return {name: displayName, points: 0, guesses: ['PLACEHOLDER']};
 	  } else {
 	    console.log('User' + displayName + 'already exists.');
 	    return; // Abort the transaction.
@@ -56,12 +57,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 	  console.log(displayName + '\'s data: ,' + snapshot.val());
 	});
 
+	/*updateGuesses();*/
+
 	// add to game-room if there's < 2 players
-	
+/*	
 	if (currentPlayers < 2) {
 		currentPlayersRef.transaction(function(currentData) {
 		  if (currentData === null) {
-		    return {name: displayName, points: 0};
+		    return {name: displayName, points: 0, guesses: []};
 		  } else {
 		    console.log('User' + displayName + 'already added to game-room.');
 		    return; // Abort the transaction.
@@ -78,8 +81,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 		});
 	}
 	else {
-		alert('sorry, there\'s no more room.')
-	}
+		alert('sorry, there\'s no more room.');
+	}*/
 
 
   } else {
@@ -88,6 +91,17 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 
 });
+
+
+/*firebase.auth().signOut().then(function() {
+        // sign-out successful
+    }).catch(function(error) {
+        // an error happened
+    });
+
+    signOut();
+
+    $(".logoutButton").on("click", signOut);*/
 
 currentPlayersRef.on('value', function (snapshot) {
 
@@ -103,25 +117,13 @@ currentPlayersRef.on('value', function (snapshot) {
 
 
 // =============================================================================
-// create players obj that has player numbers as properties and values as user data objs from returningUsers
-var players = {};
-
-function createPlayerObj () {
-
-}
 
 
 // points accumulated by user -- these will be added to the existing value in Firebase
-var p1points = 0;
-var p2points = 0;
-
 var teamPoints = 0;
 
 // stores user guesses to be referenced to later and compared
-var p1guesses = [];
-var p2guesses = [];
-
-var p1p2Matches = [];
+var guesses = [];
 
 //create random number generator
 	// to select random word from our word bank
@@ -129,75 +131,87 @@ var p1p2Matches = [];
 function generateRandomNum (min, max) {
 	return Math.floor(Math.random() * max) + min;
 }
-// calculate team points
-function calculateTeamPoints () {
-	// if player 1 and player 2 share a similar word in their guesses, grant one point to each
-		// calculate difference between the array lengths
-		// whichever one has less elements, add placeholders to have same lengths
-		// iterate over one array, check to see if a word exists in another
-			// if there's a match, push to new array
-			// count length of new array and add points to each player
-	if (p1guesses.length > p2guesses.length) {
-		// placeholder is uppercase to dinstinguish between user guesses
-		p2guesses.push('EXTRA');
-	}
-	else if (p1guesses.length < p2guesses.length) {
-		p1guesses.push('EXTRA');
-	}
 
-	for (var i=0; i < p2guesses.length; i++) {
-		if (p1guesses.includes(p2guesses[i])) {
-			p1p2Matches.push(p2guesses[i]);
-		}
-	}
-	teamPoints = p1p2Matches.length;
+// need to access users based on game room
+// grab child node keys to access their arrays and use in calculateTeamPoints to set to local variable for comparison
 
-	p1points += teamPoints;
-	p2points += teamPoints;
-	
+var playerOneGuesses;
+var playerTwoGuesses;
+
+function getPlayerGuesses () {
+	// get children keys when they're added to the current players folder
+	database.ref('/currentPlayers').on('child_added', function (snapshot) {
+
+	})
 }
 
-// capture user input and store in respective array
-// base the input field on the currentuser (Google Auth)
-$('#p1-submit-btn').click(function (event) {
+// capture user input and store in guesses array
+// need to reference respective array according to firebase storage /users/UID.guesses and update
+// need to add listener and use snapshot.val() to access the UID.guesses prop
+$('#submit-btn').click(function (event) {
 	// prevent page reload
 	event.preventDefault();
 
 	// capture user input
 	// convert to lowercase
-	var p1guess = $('#p1-guess').val().toLowerCase();
+	var guess = $('#userInput').val().toLowerCase();
+	console.log(guess);
 
-	// adds user guess to guesses array if it doesn't already exist
-	if (!p1guesses.includes(p1guess)) {
-		p1guesses.push(p1guess);
-		$('#p1-alert').text('');
-	}
-	else {
-		// alert user that they guessed that word already
-		alert('You already guessed ' + p1guess);
-	}
+	guesses.push(guess);
 
 	// clear input field
-	$('#p1-guess').val('');
+	$('#userInput').val('');
+
+	// update firebase array
+	updateGuesses();
+	evalGuesses();
 })
 
-/*$('#p2-submit-btn').click(function (event) {
-	// prevent page reload
-	event.preventDefault();
-	// capture user input
-	var p2guess = $('#p2-guess').val().toLowerCase();
-	// adds user guess to guesses array if it doesn't already exist
-	if (!p2guesses.includes(p2guess)) {
-		p2guesses.push(p2guess);
-		$('#p2-alert').text('');
-	}
-	else {
-		// alert user that they guessed that word already
-		alert('You already guessed ' + p2guess);
-	}
-	// clear input field
-	$('#p2-guess').val('');
-})*/
+// whenever this function is run, update the user's firebase array with the local array
+function updateGuesses () {
+	database.ref('/users/guesses').set(guesses)
+
+	database.ref('/users/guesses').on('value', function (snapshot) {
+		var guessesRef = snapshot.val();
+		console.log('firebase array: ' + guessesRef);
+	})
+
+	console.log('this is the local array: ' + guesses)
+}
+
+var guessData = database.ref("users/guesses");
+
+function evalGuesses () {
+    guessData.once("value", function (snapshot) {
+        var currentGuess = snapshot.val();
+
+        console.log(currentGuess);
+
+        var counts = [];
+
+        for (var i=0; i < currentGuess.length; i++) {
+        	counts.push(arrayCompare(currentGuess, currentGuess[i]))
+        }
+
+        function arrayCompare(arr, what) {
+            var count = 0;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === what) {
+                    count++;
+                }
+            }
+            return count;
+        }
+        
+        for (var index=0; index < counts.length; index++) {
+        	if (counts[index] >= 2) {
+        		teamPoints++;
+        	}
+        }
+
+        console.log(teamPoints);
+    }); // End comparisonTime
+}
 
 // change click event to function on setTimeout -- each round lasts 30 seconds
 // run this function, then setTimeout on point calculation for 30 seconds
@@ -237,61 +251,9 @@ function showImage () {
 		// appending selected image and photographer link to body -- testing
 		$('body').append(image).append(profileLink).append(imageLink);
 
-		// if guesses includes one of the actual tags associated with the image (from API), grant 2 points.
-		// iterate through tags and check to see if they exist in the guesses array
-			// refactor this code later for multiplayer feature
-		function addBonusPoints () {
-
-			for (var i=0; i < tags.length; i++) {
-				// if player one guessed a correct tag, award 2 points
-				if (p1guesses.includes(tags[i])) {
-					p1points += 2;
-				}
-				// if player one guessed a correct tag, award 2 points
-				if (p2guesses.includes(tags[i])) {
-					p2points += 2;
-				}
-			}
-		}
-
-		// displays total points accumulated by user
-		function showFinalScore () {
-			calculateTeamPoints();
-			addBonusPoints();
-		}
-
 	});
 
 }
-
-function updateFirebaseUserData () {
-	// grab user data from returningUsers folder
-		// get points value
-		// increment points accordingly
-}
-
-function startGame () {
-	// start game
-	// set timers
-}
-
-function endGame () {
-	// show more info about photo
-	// stop timers
-	// ask if players want to play again
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
