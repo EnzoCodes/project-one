@@ -57,33 +57,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 	  console.log(displayName + '\'s data: ,' + snapshot.val());
 	});
 
-	/*updateGuesses();*/
-
-	// add to game-room if there's < 2 players
-/*	
-	if (currentPlayers < 2) {
-		currentPlayersRef.transaction(function(currentData) {
-		  if (currentData === null) {
-		    return {name: displayName, points: 0, guesses: []};
-		  } else {
-		    console.log('User' + displayName + 'already added to game-room.');
-		    return; // Abort the transaction.
-		  }
-		}, function(error, committed, snapshot) {
-		  if (error) {
-		    console.log('Transaction failed abnormally!', error);
-		  } else if (!committed) {
-		    console.log('We aborted the transaction (because' + UID + 'already added to game-room).');
-		  } else {
-		    console.log('User' + displayName + 'added!');
-		  }
-		  console.log(displayName + '\'s data: ,' + snapshot.val());
-		});
-	}
-	else {
-		alert('sorry, there\'s no more room.');
-	}*/
-
 
   } else {
     // No user is signed in.
@@ -91,29 +64,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 
 });
-
-
-/*firebase.auth().signOut().then(function() {
-        // sign-out successful
-    }).catch(function(error) {
-        // an error happened
-    });
-
-    signOut();
-
-    $(".logoutButton").on("click", signOut);*/
-
-currentPlayersRef.on('value', function (snapshot) {
-
-	currentPlayers = snapshot.numChildren();
-
-	// when player disconnects, remove from folder
-	
-	// when player disconnects, end game -- no points added
-
-	console.log('current players: ' + currentPlayers)
-
-})
 
 
 // =============================================================================
@@ -133,8 +83,6 @@ function generateRandomNum (min, max) {
 }
 
 // capture user input and store in guesses array
-// need to reference respective array according to firebase storage /users/UID.guesses and update
-// need to add listener and use snapshot.val() to access the UID.guesses prop
 $('#submit-btn').click(function (event) {
 	// prevent page reload
 	event.preventDefault();
@@ -238,6 +186,8 @@ function calculateTeamPoints () {
 
     console.log('after calc points: ' + wordCount)
     console.log(teamPoints);
+
+    $('#teampoints').text(teamPoints);
 }
 
 // update the user points in firebase with the teamPoints -- run this last
@@ -254,13 +204,8 @@ function updatePoints () {
 	database.ref('/users/' + UID + '/points').set(updatedPoints);
 }
 
-// run this at the end of the game round
-function showImageInfo () {
-
-}
-
-// change click event to function on setTimeout -- each round lasts 30 seconds
-// run this function, then setTimeout on point calculation for 30 seconds
+// change click event to function on setTimeout -- each round lasts 60 seconds
+// run this function, then setTimeout on point calculation for 60 seconds
 function showImage () {
 
 	// select random search term from word bank
@@ -295,13 +240,60 @@ function showImage () {
 								.text('More about this image');
 
 		// appending selected image and photographer link to body -- testing
-		$('body').append(image).append(profileLink).append(imageLink);
+		$('#picture').attr('src', chosen.previewURL);
+
+		// run this at the end of the game round
+		function showImageInfo () {
+			$('#game-image-section').append(profileLink).append(imageLink);
+		}
 
 	});
 
 }
 
+var number = 60; 
+var intervalId;
 
+function run() {
+    intervalId = setInterval(decrement, 1000);
+    $(".submitbutton").css("visibility", "visible");
+};
+
+// set the countdown
+function decrement() {
+    number--;
+    
+    $("#timer").text(number);
+
+    if (number === 0) {
+        stop();
+        endGame();
+        
+    }
+};
+
+// when the countdown timer hits 0, it will stop
+function stop() {
+    clearInterval(intervalId);
+    number = 60;
+    $(".submitbutton").css("visibility", "hidden");
+}
+
+// start button
+$(".startButton").on("click", run);
+$(".startButton").on("click", showImage);
+
+// stop button
+$(".restartButton").on("click", run);
+$(".restartButton").on("click", showImage);
+
+function endGame() {
+	guesses = [];
+	teamPoints = 0;
+	$('#timer').hide();
+	updatePoints();
+	showImageInfo();
+}
 
 
 

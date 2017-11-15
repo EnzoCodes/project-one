@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 var number = 60; 
 var intervalId;
+
 function run() {
     intervalId = setInterval(decrement, 1000);
     $(".submitbutton").css("visibility", "visible");
