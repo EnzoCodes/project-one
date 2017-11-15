@@ -288,10 +288,10 @@ $(".restartButton").on("click", run);
 $(".restartButton").on("click", showImage);
 
 function endGame() {
+	updatePoints();
 	guesses = [];
 	teamPoints = 0;
 	$('#timer').hide();
-	updatePoints();
 	showImageInfo();
 }
 
