@@ -256,6 +256,7 @@ function run() {
 		running = true;
 	    intervalId = setInterval(decrement, 1000);
 	    $(".submitbutton").css("visibility", "visible");
+	    showImage();
 	}
 };
 
@@ -276,26 +277,17 @@ function stop() {
     clearInterval(intervalId);
     number = 60;
     $(".submitbutton").css("visibility", "hidden");
-    endGame();
+    updatePoints();
 }
 
 // start button
 $(".startButton").on("click", run);
-$(".startButton").on("click", showImage);
 $(".startButton").on("click", function () {
 	$('#timer').show();
 });
 
 // stop button
 $(".restartButton").on("click", run);
-$(".restartButton").on("click", showImage);
-
-function endGame() {
-	updatePoints();
-	guesses = [];
-	teamPoints = 0;
-	$('#game-image-section').show();
-}
 
 
 
