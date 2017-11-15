@@ -240,7 +240,7 @@ function showImage () {
 		$('#picture').attr('src', chosen.previewURL);
 
 		// hidden at first than will show at end of game
-		$('#game-image-section').append(profileLink).append(imageLink);
+		$('#game-image-section').append(profileLink + '<br>').append(imageLink);
 		$('#game-image-section').hide();
 
 	});
@@ -267,9 +267,6 @@ function decrement() {
 
     if (number === 0) {
         stop();
-        updatePoints();
-        endGame();
-
     }
 };
 
@@ -294,10 +291,10 @@ $(".restartButton").on("click", run);
 $(".restartButton").on("click", showImage);
 
 function endGame() {
+	updatePoints();
 	guesses = [];
 	teamPoints = 0;
 	$('#game-image-section').show();
-	updatePoints();
 }
 
 
