@@ -193,13 +193,11 @@ function calculateTeamPoints () {
     $('#teampoints').text(teamPoints);
 }
 
-// historical points for current user
-var userHistPoints;
-// add new points to their existing points in firebase
-var updatedPoints = userHistPoints + teamPoints;
 
 // update the user points in firebase with the teamPoints -- run this last
 function updatePoints () {
+	// historical points for current user
+	var userHistPoints;
 
 	database.ref('/users/' + UID + '/points').on('value', function (snapshot) {
 		userHistPoints = snapshot.val();
@@ -209,7 +207,8 @@ function updatePoints () {
 	console.log('prev user points: ' + userHistPoints);
 	console.log('teampoints: ' + teamPoints);
 
-	updatedPoints = userHistPoints + teamPoints;
+	// add new points to their existing points in firebase
+	var updatedPoints = userHistPoints + teamPoints;
 
 	console.log('updated points: ' + updatedPoints);
 
@@ -279,6 +278,7 @@ function decrement() {
 
     if (number === 0) {
         stop();
+        updatePoints();
         endGame();
 
     }
@@ -303,7 +303,6 @@ $(".restartButton").on("click", run);
 $(".restartButton").on("click", showImage);
 
 function endGame() {
-	updatePoints();
 	guesses = [];
 	teamPoints = 0;
 	$('#timer').hide();
