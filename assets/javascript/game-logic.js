@@ -277,6 +277,7 @@ function stop() {
     clearInterval(intervalId);
     number = 60;
     $(".submitbutton").css("visibility", "hidden");
+    guesses = [];
     updatePoints();
 }
 
